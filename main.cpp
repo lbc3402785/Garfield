@@ -25,8 +25,8 @@ cv::Mat getGramMat(vector<cv::Mat>& betas,cv::Mat& beta){
 	return m;
 }
 /**
- * 假设平面方程为z=k1*x+k2*y+k3
- * 返回(k1,k2,k3)
+ * 鍋囪骞抽潰鏂圭▼涓簔=k1*x+k2*y+k3
+ * 杩斿洖(k1,k2,k3)
  */
 cv::Mat getPlane(vector<cv::Point3d>& points){
 	size_t n=points.size();
