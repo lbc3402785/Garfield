@@ -85,35 +85,34 @@ cv::Mat getPlane(std::vector<cv::Point3d>& points,int index){
  * 返回A,B,C,D
  */
 std::array<double,4> getStandrdPlane(std::vector<cv::Point3d>& points){
-	assert(points.size()>=3);
-	cv::Point3d p1=points[0];
-	cv::Point3d p2=points[1];
-	cv::Point3d p3=points[2];
-	std::vector<cv::Mat> betas;
-	cv::Vec3d v1(p2-p1);
-	cv::Vec3d v2(p3-p1);
-	cv::Vec3d v3=v1.cross(v2);
-	std::array<double,4> result={0};
-	if(v3[2]!=0){
-		cv::Mat m=getPlane(points,2);
-		result[0]=m.at<double>(0,0);
-		result[1]=m.at<double>(1,0);
-		result[2]=-1;
-		result[3]=m.at<double>(2,0);
-	}else if(v3[1]!=0){
-		cv::Mat m=getPlane(points,2);
-		result[0]=m.at<double>(0,0);
-		result[1]=-1;
-		result[2]=m.at<double>(1,0);
-		result[3]=m.at<double>(2,0);
-	}else if(v3[0]!=0){
-		cv::Mat m=getPlane(points,2);
-		result[0]=-1;
-		result[1]=m.at<double>(0,0);
-		result[2]=m.at<double>(1,0);
-		result[3]=m.at<double>(2,0);
-	}
-	return result;
+    assert(points.size()>=3);
+    cv::Point3d p1=points[0];
+    cv::Point3d p2=points[1];
+    cv::Point3d p3=points[2];
+    cv::Vec3d v1(p2-p1);
+    cv::Vec3d v2(p3-p1);
+    cv::Vec3d v3=v1.cross(v2);
+    std::array<double,4> result={0};
+    if(std::abs(v3[2])>0.0001){
+        cv::Mat m=getPlane(points,2);
+        result[0]=m.at<double>(0,0);
+        result[1]=m.at<double>(1,0);
+        result[2]=-1;
+        result[3]=m.at<double>(2,0);
+    }else if(std::abs(v3[1])>0.0001){
+        cv::Mat m=getPlane(points,1);
+        result[0]=m.at<double>(0,0);
+        result[1]=-1;
+        result[2]=m.at<double>(1,0);
+        result[3]=m.at<double>(2,0);
+    }else if(std::abs(v3[0])>0.0001){
+        cv::Mat m=getPlane(points,0);
+        result[0]=-1;
+        result[1]=m.at<double>(0,0);
+        result[2]=m.at<double>(1,0);
+        result[3]=m.at<double>(2,0);
+    }
+    return result;
 }
 int main()
 {
