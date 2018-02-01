@@ -84,7 +84,7 @@ cv::Mat getPlane(std::vector<cv::Point3d>& points,int index){
  * 假设平面方程为Ax+By+Cz+D=0;
  * 返回A,B,C,D
  */
-std::array<double,4> getStandrdPlane(vector<cv::Point3d>& points){
+std::array<double,4> getStandrdPlane(std::vector<cv::Point3d>& points){
 	assert(points.size()>=3);
 	cv::Point3d p1=points[0];
 	cv::Point3d p2=points[1];
